@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Private messages</title>
+</head>
+<body>
+    <div class="center-element">
+        <scroll-container id="scroll-bar">
+            <div class="messages"></div>
+        </scroll-container>
+        <form id="chat">
+            <input type="text" name="username" id="username" class="input-box" placeholder="Nome do remetente" required>
+            <input type="text" name="message" class="input-box" placeholder="Mensagem"><br>
+            <div class="space-between">
+                <div class="checkbox-container">
+                    <input type="checkbox" name="anonym" id="anonym" onchange="isAnonym()"><label for="anonym" class="msg-anonym">Mensagem anonima</label>
+                </div>
+                <button type="submit" class="btn-send">Send</button>
+                <button type="button" class="btn-empty" onclick="eraseAll()">Apagar tudo</button>
+            </div>
+                
+        </form>
+    </div>
+    <script>
+        let socket = io('http://localhost')
+
+        function renderMessage(message){
+            if(message != 0){
+                $('.messages').append(`<div class="message"><strong>${message.author}</strong>: ${message.message}</div>`)
+            }else{
+                $('.messages').html("")
+            }
+        }
+
+        socket.on('previousMessages',function(messages){
+            for (message of messages){
+                renderMessage(message)
+            }
+        })
+
+        socket.on('receivedMessage', function(message){
+            renderMessage(message)
+        })
+
+        let anonym = false
+    
+        function isAnonym(){
+            anonym = document.getElementById('anonym').checked
+            let authorHidden = document.getElementById('username')
+            if(anonym){
+                authorHidden.removeAttribute('required')
+                authorHidden.style.display = 'none'
+            }else {
+                authorHidden.setAttribute('required','required')
+                authorHidden.style.display = 'inline-block'
+            }
+        }
+
+        function eraseAll(){
+            socket.emit('sendMessage', 0)
+            $('.messages').html("")
+        }
+
+        $('#chat').submit(function(event){
+            event.preventDefault()
+
+            let author = $('input[name=username]').val()
+            let message = $('input[name=message]').val()
+
+            if (message.length){
+
+                let messageObject = {
+                    author: '',
+                    message:message
+                }
+                if(anonym){
+                    messageObject.author = 'Usuario anônimo'
+                } 
+                else {
+                    messageObject.author = author
+                }
+                let scrollBar = document.getElementById('scroll-bar')
+                scrollBar.scroll(0,300)
+                socket.emit('sendMessage', messageObject)
+                renderMessage(messageObject)
+                $('input[name=message]').val("")
+            }
+        })
+    </script>
+</body>
+</html>

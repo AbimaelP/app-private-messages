@@ -1,0 +1,90 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #28242d;
+}
+* {
+    font-family: 'Roboto';
+}
+
+.center-element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+    bottom: 70px;
+    position: relative;
+}
+.center-element form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 450px;
+}
+
+.input-box {
+    display: flex;
+    margin: 7px 15px;
+    background: #160d23;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 20px;
+    color: #8be9fd;
+    border: none;
+    padding: 5px;
+    outline: none;
+}
+.btn-send {
+    display: none;
+    position: absolute;
+}
+.btn-empty {
+    display: inline-block;
+    margin-right: 15px;
+    padding: 7px;
+    background-color: #160d23;
+    color: #ffff;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+}
+.btn-empty:hover {
+    ackground-color: #683da5;
+}
+.btn-empty:active {
+    ackground-color: #4d0aaa;
+}
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+scroll-container {
+    text-align: center;
+    display: block;
+    height: 175px;
+    min-width: 100px;
+    max-width: 250px;
+    position: relative;
+    bottom: 10px;
+    overflow: hidden;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+  }
+  scroll-container::-webkit-scrollbar {
+  width: 12px;              
+}
+
+.messages {
+    color: #ffff;
+    margin:5px 0 ;
+}
+.msg-anonym {
+    font-size: 17px;
+    color: #8be9fd;
+}
+.checkbox-container {
+    margin-left: 15px;
+}
