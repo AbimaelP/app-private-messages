@@ -1,13 +1,5 @@
-const express = require('express')
-const app = express()
-const PORT = 3000
+import sequelize from './config/db/database.js'
+import Model from './app/models/index.js'
+import 'dotenv/config'
 
-
-
-app.get('/login',(req,res) => {
-    res.send('Usuario logado')
-})
-
-app.listen(PORT,()=>{
-    console.log('Server is running in port ' + PORT)
-})
+console.log(process.env.HOST)
