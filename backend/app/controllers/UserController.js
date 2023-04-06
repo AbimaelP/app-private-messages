@@ -4,6 +4,9 @@ class UserController {
     async getAllUsers(){
         return await User.findAll() 
     }
+    createUser(data){
+        return 'success'
+    }
 }
 
 export default new UserController
