@@ -3,7 +3,11 @@ import UserController from './app/controllers/UserController.js'
 import express from 'express'
 const app = express()
 
-app.listen(3000, async ()=>{
+app.get('/get-users',async (req,res)=>{
     const userList = await UserController.getAllUsers()
-    console.log(userList[0])
+    res.json(userList[0])
+})
+
+app.listen(3000,()=>{
+    console.log('SERVER IS RUNNING')
 })
