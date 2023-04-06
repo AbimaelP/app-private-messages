@@ -1,11 +1,11 @@
 import User from './users/User.js'
 import Token from './tokens/Token.js'
-import sequelize from '../../config/db/database.js'
+import Message from './messages/Message.js'
 
 const Model = {
-  User: 'User',
-  Token: 'Token'
+  User,
+  Token,
+  Message
 }
-//sequelize.sync() //-----> Enviar migrations para o banco de dados
 
 export default Model
