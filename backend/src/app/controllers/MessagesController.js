@@ -1,5 +1,6 @@
 import User from '../models/users/User.js'
 import Message from '../models/users/User.js'
+
 class MessagesController {
     index(data){
         

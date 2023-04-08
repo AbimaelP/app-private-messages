@@ -1,6 +1,5 @@
 import express from 'express'
 import UserController from '../app/controllers/UserController.js'
-import sequelize from '../config/db/database.js'
 
 const router = express.Router()
 
@@ -30,16 +29,6 @@ router.get('/messages-history', auth,async (request,response) => {
     const token = await request.body
     const messages = await MessagesController.index(token)
 
-    //
 });
-
-
-
-//Rota apenas para admin
-/*router.get('/get-users',async (request,response)=>{
-    const userList = await UserController.getAllUsers()
-
-    response.json(userList)
-})*/
 
 export default router
