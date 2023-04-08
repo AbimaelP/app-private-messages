@@ -4,11 +4,49 @@ import { v4 as uuidv4 } from 'uuid';
 
 class UserController {
 
-    index(data){
-        
+    async authenticate(data)
+    {
+        const isAuth = await Token.findOne({
+            token_cod: data
+        }).then((response) => {
+            return {
+                codRequest: 200,
+                isValid: response.token_cod,
+            }
+        }).catch((error) => {
+            return {
+                codRequest: 401,
+                error
+            }
+        })
+
+        return isAuth
     }
 
-    async create(data){
+    async index(data)
+    {
+        const user = await Token.findOne({
+            where: {
+                token_cod: data,
+            },
+            include: [{model: User}]
+        }).then((response) => {
+            return {
+                codRequest: 200,
+                response
+            }
+        }).catch((error) => {
+            return {
+                codRequest: 401,
+                error
+            }
+        })
+
+        return user
+    }
+
+    async create(data)
+    {
         const tokenCod = await uuidv4()
         const userCreated = await User.create(data).then((response) => {
             return response
@@ -30,11 +68,13 @@ class UserController {
         }
     }
 
-    update(data){
+    update(data)
+    {
 
     }
 
-    delete(data){
+    delete(data)
+    {
 
     }
 }

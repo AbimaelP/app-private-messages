@@ -2,19 +2,23 @@ import User from '../models/users/User.js'
 import Message from '../models/users/User.js'
 
 class MessagesController {
-    index(data){
+    index(data)
+    {
         
     }
 
-    create(data){
+    create(data)
+    {
 
     }
 
-    update(data){
+    update(data)
+    {
 
     }
 
-    delete(data){
+    delete(data)
+    {
 
     }
 
